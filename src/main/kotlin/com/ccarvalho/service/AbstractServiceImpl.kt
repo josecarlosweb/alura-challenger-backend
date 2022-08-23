@@ -38,6 +38,8 @@ abstract class AbstractServiceImpl<E : DefaultEntity, V : AbstractValidator<E>, 
 
     override fun findAll(pageable: Pageable) = repository.findAll(pageable)
 
+    override fun findAll() = repository.findAll()
+
     override fun findById(id: Long) = repository.findById(id)
 
     override fun deleteById(id: Long) = repository.deleteById(id)

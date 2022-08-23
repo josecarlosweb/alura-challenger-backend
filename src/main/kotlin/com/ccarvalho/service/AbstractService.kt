@@ -15,6 +15,8 @@ interface AbstractService<E: DefaultEntity> {
 
     fun findAll(pageable: Pageable): Page<E>
 
+    fun findAll(): MutableList<E>
+
     fun findById(id: Long): Optional<E>
 
     fun deleteById(id: Long)

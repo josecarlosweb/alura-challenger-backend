@@ -19,15 +19,18 @@ abstract class AbstractController<E : DefaultEntity, S : AbstractService<E>>(
     @GetMapping("/{id}")
     fun findById(@PathVariable("id") id: Long): ResponseEntity<E> {
         val findByIdOptional = service.findById(id)
-        return if(findByIdOptional.isPresent){
+        return if (findByIdOptional.isPresent) {
             ResponseEntity(findByIdOptional.get(), HttpStatus.OK)
-        }else{
+        } else {
             ResponseEntity(HttpStatus.NO_CONTENT)
         }
     }
 
-    @GetMapping
-    fun findAll(@RequestParam(defaultValue = "0") page: Int, @RequestParam(defaultValue = "50") size: Int): Page<E> {
+    @GetMapping(params = ["page", "size"])
+    fun findAll(
+        @RequestParam(required = false, defaultValue = "0") page: Int,
+        @RequestParam(required = false, defaultValue = "50") size: Int
+    ): Page<E> {
         val pageable = PageRequest.of(page, size)
         return service.findAll(pageable)
     }
@@ -50,7 +53,7 @@ abstract class AbstractController<E : DefaultEntity, S : AbstractService<E>>(
     }
 
     @DeleteMapping("/{id}")
-    fun deleteById(@PathVariable("id") id: Long): ResponseEntity<E>{
+    fun deleteById(@PathVariable("id") id: Long): ResponseEntity<E> {
         service.deleteById(id)
         return ResponseEntity(HttpStatus.OK)
     }
