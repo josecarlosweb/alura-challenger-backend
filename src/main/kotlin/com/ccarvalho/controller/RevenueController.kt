@@ -7,8 +7,4 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping(value = ["/receitas", "/receipts"])
-class RevenueController(
-    private val revenueService: RevenueService
-): AbstractController<Revenue, RevenueService>(revenueService) {
-
-}
+class RevenueController(revenueService: RevenueService): AbstractController<Revenue, RevenueService>(revenueService)

@@ -2,20 +2,35 @@ package com.ccarvalho.controller
 
 import com.ccarvalho.domain.DefaultEntity
 import com.ccarvalho.service.AbstractService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 import javax.validation.constraints.NotEmpty
 
 @Validated
-abstract class AbstractController<E: DefaultEntity, S: AbstractService<E>>(
+abstract class AbstractController<E : DefaultEntity, S : AbstractService<E>>(
     private val service: S
-){
+) {
+
+    @GetMapping("/{id}")
+    fun findById(@PathVariable("id") id: Long): ResponseEntity<E> {
+        val findByIdOptional = service.findById(id)
+        return if(findByIdOptional.isPresent){
+            ResponseEntity(findByIdOptional.get(), HttpStatus.OK)
+        }else{
+            ResponseEntity(HttpStatus.NO_CONTENT)
+        }
+    }
+
+    @GetMapping
+    fun findAll(@RequestParam(defaultValue = "0") page: Int, @RequestParam(defaultValue = "50") size: Int): Page<E> {
+        val pageable = PageRequest.of(page, size)
+        return service.findAll(pageable)
+    }
 
     @PostMapping
     fun create(@Valid @RequestBody entity: E): ResponseEntity<E> {
