@@ -19,5 +19,7 @@ data class Expense(
         nullable = false
     ) val value: Double,
 
-    @field:NotNull @Column(nullable = false) @Temporal(TemporalType.TIMESTAMP) val createdDate: Date
+    @field:NotNull @Column(nullable = false) @Temporal(TemporalType.TIMESTAMP) val createdDate: Date,
+
+    @Column val category: ExpenseCategory? = ExpenseCategory.OTHERS
 ) : DefaultEntity()
