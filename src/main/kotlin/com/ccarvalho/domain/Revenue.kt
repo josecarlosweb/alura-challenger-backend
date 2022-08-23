@@ -17,5 +17,5 @@ data class Revenue(
         scale = 2,
         nullable = false
     ) val value: Double,
-    @field:NotNull @Temporal(TemporalType.TIMESTAMP) @Column(nullable = false) val createdDate: Date? = Date()
+    @field:NotNull @Temporal(TemporalType.TIMESTAMP) @Column(nullable = false) val createdDate: Date
 ) : DefaultEntity()

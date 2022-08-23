@@ -6,7 +6,6 @@ import com.ccarvalho.repository.RevenueRepository
 import com.ccarvalho.util.getMonthFromDate
 import com.ccarvalho.validator.RevenueValidator
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class RevenueService(
@@ -15,8 +14,7 @@ class RevenueService(
 ): AbstractServiceImpl<Revenue, RevenueValidator, RevenueRepository>(repository, validator) {
 
     override fun preCreate(entity: Revenue){
-        val dateToCompare = entity.createdDate ?: Date()
-        val month = getMonthFromDate(dateToCompare)
+        val month = getMonthFromDate(entity.createdDate)
         val findExists = repository.findRevenueByDescriptionAndMonth(entity.description, month.toInt())
         if(findExists.isNotEmpty()){
             throw GenericServiceException("Revenue.Is.Duplicated")

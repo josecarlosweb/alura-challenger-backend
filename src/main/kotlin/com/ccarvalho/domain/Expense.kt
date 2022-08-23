@@ -13,11 +13,11 @@ import javax.validation.constraints.NotNull
 data class Expense(
     @field:NotEmpty @field:NotNull @Column(nullable = true) val description: String,
 
-    @field:NotEmpty @field:NotNull @field:Digits(integer = 12, fraction = 2) @Column(
+    @field:NotNull @field:Digits(integer = 12, fraction = 2) @Column(
         precision = 12,
         scale = 2,
         nullable = false
     ) val value: Double,
 
-    @field:NotNull @Column(nullable = false) @Temporal(TemporalType.TIMESTAMP) val createdDate: Date? = Date()
+    @field:NotNull @Column(nullable = false) @Temporal(TemporalType.TIMESTAMP) val createdDate: Date
 ) : DefaultEntity()

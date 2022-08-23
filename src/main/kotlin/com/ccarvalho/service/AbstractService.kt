@@ -17,4 +17,6 @@ interface AbstractService<E: DefaultEntity> {
 
     fun findById(id: Long): Optional<E>
 
+    fun deleteById(id: Long)
+
 }

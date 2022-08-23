@@ -49,4 +49,10 @@ abstract class AbstractController<E : DefaultEntity, S : AbstractService<E>>(
         return ResponseEntity(updated, HttpStatus.OK)
     }
 
+    @DeleteMapping("/{id}")
+    fun deleteById(@PathVariable("id") id: Long): ResponseEntity<E>{
+        service.deleteById(id)
+        return ResponseEntity(HttpStatus.OK)
+    }
+
 }
