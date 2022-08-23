@@ -27,4 +27,6 @@ class RevenueService(
     fun findByDescription(descriptionExample: String, pageable: Pageable): Page<Revenue> =
         repository.findAllByDescriptionContainsIgnoreCase(descriptionExample, pageable)
 
+    fun findByYearAndMonth(year: Int, month: Int) = repository.findByYearAndMonth(year, month)
+
 }

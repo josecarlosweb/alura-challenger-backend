@@ -5,6 +5,7 @@ import com.ccarvalho.exception.GenericServiceException
 import com.ccarvalho.repository.ExpenseRepository
 import com.ccarvalho.util.getMonthFromDate
 import com.ccarvalho.validator.ExpenseValidator
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
 
 @Service
@@ -21,5 +22,10 @@ class ExpenseService(
         }
         super.preCreate(entity)
     }
+
+    fun findByDescription(description: String, pageable: PageRequest) =
+        repository.findAllByDescriptionContainsIgnoreCase(description, pageable)
+
+    fun findByYearAndMonth(year: Int, month: Int) = repository.findByYearAndMonth(year, month)
 
 }
